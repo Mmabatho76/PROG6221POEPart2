@@ -33,15 +33,15 @@ namespace PROG6221POE
         {
             Text = "AZEEBOT";
 
-            Size = new Size(960, 720);
+            Size = new Size(980, 720);
 
             StartPosition = FormStartPosition.CenterScreen;
 
             BackColor = Color.FromArgb(220, 240, 255);
 
-            FormBorderStyle = FormBorderStyle.FixedSingle;
+            FormBorderStyle = FormBorderStyle.Sizable;
 
-            MaximizeBox = false;
+            MaximizeBox = true;
 
             // Main title
             lblTitle = new Label();
@@ -167,13 +167,15 @@ namespace PROG6221POE
 
             rtbChat.BorderStyle = BorderStyle.FixedSingle;
 
-            // Use a monospace font and disable word wrap so ASCII art
+            // Use a monospace font and a clean chatbot apperance 
             // and fixed-width content keep their alignment.
             rtbChat.Font = new Font("Consolas", 10);
-            rtbChat.WordWrap = false;
-            rtbChat.ScrollBars = RichTextBoxScrollBars.Both;
+            rtbChat.WordWrap = true;
+            rtbChat.ScrollBars = RichTextBoxScrollBars.Vertical;
 
             Controls.Add(rtbChat);
+
+            rtbChat.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 
             // User input field
             txtInput = new TextBox();
@@ -195,6 +197,8 @@ namespace PROG6221POE
             txtInput.KeyDown += TxtInput_KeyDown;
 
             Controls.Add(txtInput);
+
+            txtInput.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 
             // Send button
             btnSend = new Button();
@@ -222,6 +226,8 @@ namespace PROG6221POE
             btnSend.Click += BtnSend_Click;
 
             Controls.Add(btnSend);
+
+            btnSend.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
         }
 
         private void BtnStart_Click(object? sender, EventArgs e)
@@ -248,7 +254,7 @@ namespace PROG6221POE
 
             AddBotMessage("Try typing things like: 'I am curious about privacy' or 'tell me more about scams'.");
 
-            AudioPlayer.PlayGreeting("Audio.wav");
+            AudioPlayer.PlayGreeting("greeting.wav");
 
             txtInput!.Enabled = true;
 

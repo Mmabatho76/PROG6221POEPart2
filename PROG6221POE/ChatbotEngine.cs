@@ -327,7 +327,7 @@ namespace PROG6221POE
 
         public string GetAsciiArt()
         {
-            return AsciiArt.GetArt();
+            return AsciiArt.GetAsciiArt();
         }
     }
 }
