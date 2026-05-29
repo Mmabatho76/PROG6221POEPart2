@@ -237,7 +237,7 @@ namespace PROG6221POE
             btnSend.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
         }
 
-        private void BtnStart_Click(object? sender, EventArgs e)
+        private void BtnStart_Click(object sender, EventArgs e)
         {
             string name = txtName!.Text.Trim();
 
@@ -270,7 +270,7 @@ namespace PROG6221POE
             txtInput.Focus();
         }
 
-        private void BtnSend_Click(object? sender, EventArgs e)
+        private void BtnSend_Click(object sender, EventArgs e)
         {
             ProcessUserInput();
         }
@@ -311,11 +311,25 @@ namespace PROG6221POE
 
             AddBotMessage(response);
 
+            //Exit check
+            string lowerInput = userInput.ToLower();
+
+            if (lowerInput == "exit" || lowerInput == "quit" || lowerInput == "goodbye" || lowerInput == "bye")
+            {
+                AddBotMessage("Chat session has ended.");
+
+                txtInput.Enabled = false;
+                btnSend.Enabled = false;
+
+                return; //stop further processing
+
+            }
+
+
             txtInput.Clear();
 
             txtInput.Focus();
         }
-
         private void AddUserMessage(string message)
         {
             rtbChat!.SelectionColor = Color.FromArgb(50, 100, 160);

@@ -126,6 +126,12 @@ namespace PROG6221POE
 
             input = input.ToLower().Trim(); // Converts input to lowercase for easier matching
 
+            //Handles exit commands 
+            if (input == "exit" || input == "quit" || input == "goodbye" || input == "bye")
+            {
+                return "Goodbye " + userName + ".Stay safe online!";
+            }
+
             //Uses delegate for sentiment detection
             BotResponseDelegate feelingDetector = DetectFeeling;
             string feelingReply = feelingDetector(input); //Detects emotion in user message 
