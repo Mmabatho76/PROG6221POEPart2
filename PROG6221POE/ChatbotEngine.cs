@@ -7,6 +7,7 @@ namespace PROG6221POE
 
     public class ChatbotEngine
     {
+        // Stores the user's name
         private string userName;
         private string favouriteTopic = "";
         private string activeTopic = "";
@@ -14,18 +15,19 @@ namespace PROG6221POE
 
         private readonly Random random = new Random();
 
-        private readonly Dictionary<string, string> generalResponses;
-        private readonly Dictionary<string, string> phishingResponses;
-        private readonly Dictionary<string, string> passwordResponses;
-        private readonly Dictionary<string, string> safeBrowsingResponses;
+        private readonly Dictionary<string, string> generalResponses; // Dictionary for general chatbot responses
+        private readonly Dictionary<string, string> phishingResponses; // Dictionary for phishing-related responses
+        private readonly Dictionary<string, string> passwordResponses; // Dictionary for password-related responses
+        private readonly Dictionary<string, string> safeBrowsingResponses; // Dictionary for safe browsing-related responses
 
-        private readonly Dictionary<string, List<string>> quickTopicResponses;
-        private readonly Dictionary<string, List<string>> detailedTopicResponses;
-        private readonly Dictionary<string, List<string>> feelingResponses;
-        private readonly Dictionary<string, List<string>> topicKeywords;
+        private readonly Dictionary<string, List<string>> quickTopicResponses; // Stores quick random responses for topics
+        private readonly Dictionary<string, List<string>> detailedTopicResponses; // Stores detailed responses for follow-up questions
+        private readonly Dictionary<string, List<string>> feelingResponses; // Stores responses based on user's feelings
+        private readonly Dictionary<string, List<string>> topicKeywords; // Stores keywords associated with each topic
 
-        public ChatbotEngine(string userName)
+        public ChatbotEngine(string userName) // Constructor
         {
+            // Prevents empty username
             this.userName = string.IsNullOrWhiteSpace(userName) ? "Friend" : userName;
 
             generalResponses = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
@@ -115,29 +117,33 @@ namespace PROG6221POE
             };
         }
 
-        public string GetResponse(string input)
+        public string GetResponse(string input) // Main chatbot response method
         {
-            if (string.IsNullOrWhiteSpace(input))
+            if (string.IsNullOrWhiteSpace(input))  // Prevents empty user input
             {
                 return "Please type something first.";
             }
 
-            input = input.ToLower().Trim();
+            input = input.ToLower().Trim(); // Converts input to lowercase for easier matching
 
+            //Uses delegate for sentiment detection
             BotResponseDelegate feelingDetector = DetectFeeling;
-            string feelingReply = feelingDetector(input);
+            string feelingReply = feelingDetector(input); //Detects emotion in user message 
 
+            //Handles chatbot memory and recall
             string memoryReply = HandleMemory(input);
             if (!string.IsNullOrWhiteSpace(memoryReply))
             {
                 return memoryReply;
             }
 
+            //Detects follow up requests
             if (IsFollowUp(input))
             {
                 return ContinueTopic();
             }
 
+            //Detects exact keyword responses 
             string partOneReply = DetectPartOneResponse(input);
             string topicReply = DetectTopic(input);
 

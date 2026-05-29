@@ -26,6 +26,7 @@ namespace PROG6221POE
         {
             InitializeComponent();
 
+            //Builds all GUI components dynamically 
             BuildInterface();
         }
 
@@ -33,8 +34,10 @@ namespace PROG6221POE
         {
             Text = "AZEEBOT";
 
+            //Window size
             Size = new Size(980, 720);
 
+            //Opens form in centre of screen
             StartPosition = FormStartPosition.CenterScreen;
 
             BackColor = Color.FromArgb(220, 240, 255);
@@ -103,8 +106,10 @@ namespace PROG6221POE
 
             txtName.BorderStyle = BorderStyle.FixedSingle;
 
+            //Placeholder text
             txtName.Text = "Enter your name...";
 
+            //Removes placeholder text when textbox is clicked 
             txtName.Enter += (s, e) =>
             {
                 if (txtName.Text == "Enter your name...")
@@ -115,6 +120,7 @@ namespace PROG6221POE
                 }
             };
 
+            //Restores placeholder if textbox is empty
             txtName.Leave += (s, e) =>
             {
                 if (string.IsNullOrWhiteSpace(txtName.Text))
@@ -159,6 +165,7 @@ namespace PROG6221POE
 
             rtbChat.Size = new Size(870, 395);
 
+            //prevents user from editing chat
             rtbChat.ReadOnly = true;
 
             rtbChat.BackColor = Color.FromArgb(245, 250, 255);
