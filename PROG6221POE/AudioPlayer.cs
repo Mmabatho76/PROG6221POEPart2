@@ -8,7 +8,7 @@ namespace PROG6221POE
     public static class AudioPlayer
     {
         public static void PlayGreeting(string filePath)
-        {
+        { 
             // Makes sure the audio file exists first
             if (!File.Exists(filePath))
             {
