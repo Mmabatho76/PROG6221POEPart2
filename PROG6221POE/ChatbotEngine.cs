@@ -320,13 +320,6 @@ namespace PROG6221POE
                 return responses[input];
             }
 
-            foreach (string key in responses.Keys)
-            {
-                if (input.Contains(key))
-                {
-                    return responses[key];
-                }
-            }
 
             return null;
         }

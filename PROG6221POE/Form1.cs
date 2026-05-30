@@ -307,10 +307,6 @@ namespace PROG6221POE
 
             AddUserMessage(userInput);
 
-            string response = bot.GetResponse(userInput);
-
-            AddBotMessage(response);
-
             //Exit check
             string lowerInput = userInput.ToLower();
 
@@ -321,13 +317,16 @@ namespace PROG6221POE
                 txtInput.Enabled = false;
                 btnSend.Enabled = false;
 
+                txtInput.Clear();
                 return; //stop further processing
 
             }
 
+            string response = bot.GetResponse(userInput);
+            AddBotMessage(response);
+
 
             txtInput.Clear();
-
             txtInput.Focus();
         }
         private void AddUserMessage(string message)
